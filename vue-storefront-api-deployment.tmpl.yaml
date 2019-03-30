@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: onak-vue-storefront-api
+spec:
+  selector:
+    matchLabels:
+      app: onak-vue-storefront-api
+  template:
+    metadata:
+      labels:
+        app: onak-vue-storefront-api
+    spec:
+      containers:
+      - name: onak-vue-storefront-api
+        image: {{container-image}}
+        envFrom:
+        - configMapRef:
+            name: onak-vue-storefront-api-config
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /var/www/dist
+          name: dist
+      volumes:
+      - name: dist
+        emptyDir:
+          medium: Memory

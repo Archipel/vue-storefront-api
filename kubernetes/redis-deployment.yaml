@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis
+  name: onak-redis
 spec:
   selector:
     matchLabels:
-      app: redis
+      app: onak-redis
   template:
     metadata:
       labels:
-        app: redis
+        app: onak-redis
     spec:
       containers:
-      - name: redis
+      - name: onak-redis
         image: redis:4-alpine
         ports:
         - containerPort: 6379

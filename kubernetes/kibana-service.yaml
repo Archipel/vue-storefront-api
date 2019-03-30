@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: kibana
+  name: onak-kibana
   labels:
-    app: kibana
+    app: onak-kibana
 spec:
   selector:
-    app: kibana
+    app: onak-kibana
   ports:
   - port: 5601
     targetPort: 5601

@@ -1,16 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: elasticsearch
+  name: onak-elasticsearch
 spec:
   selector:
     matchLabels:
-      app: elasticsearch
+      app: onak-elasticsearch
   template:
     metadata:
       labels:
-        app: elasticsearch
+        app: onak-elasticsearch
     spec:
+      initContainers:
+      - name: fix-the-volume-permission
+        image: busybox
+        command:
+        - sh
+        - -c
+        - chown -R 1000:1000 /usr/share/elasticsearch/data
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: data
+          mountPath: /usr/share/elasticsearch/data
       containers:
       - name: elasticsearch
         image: divante/vue-storefront-elasticsearch:5.6.9
@@ -34,4 +46,5 @@ spec:
           name: data
       volumes:
       - name: data
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: onak-elasticsearch-data

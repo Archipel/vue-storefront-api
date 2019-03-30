@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: onak-vue-storefront-api
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/proxy-body-size: "0"
+spec:
+  tls:
+  - hosts:
+    - vsa.onakcanoes.com
+    secretName: onak-vue-storefront-api-tls
+  rules:
+  - host: vsa.onakcanoes.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: onak-vue-storefront-api
+          servicePort: 8080
