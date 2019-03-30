@@ -14,13 +14,15 @@
     "host": "localhost",
     "port": 9200,
     "protocol": "http",
-    "user": "elastic",
-    "password": "changeme",
+    "__user": "elastic",
+    "__password": "changeme",
     "min_score": 0.01,
     "indices": [
       "vue_storefront_catalog",
+      "vue_storefront_catalog_en",
       "vue_storefront_catalog_de",
-      "vue_storefront_catalog_it"
+      "vue_storefront_catalog_fr",
+      "vue_storefront_catalog_nl"
     ],
     "indexTypes": [
       "product",
@@ -39,19 +41,50 @@
   },
   "kue": {},
   "availableStores": [
+    "en",
     "de",
-    "it"
+    "fr",
+    "nl"
   ],
   "storeViews": {
     "multistore": true,
     "mapStoreUrlsFor": [
+      "en",
       "de",
-      "it"
+      "fr",
+      "nl"
     ],
+    "en": {
+      "storeCode": "en",
+      "disabled": true,
+      "storeId": 1,
+      "name": "English Store",
+      "url": "/en",
+      "elasticsearch": {
+        "host": "localhost:8080/api/catalog",
+        "index": "vue_storefront_catalog_en"
+      },
+      "tax": {
+        "defaultCountry": "UK",
+        "defaultRegion": "",
+        "calculateServerSide": true,
+		    "sourcePriceIncludesTax": false
+      },
+      "i18n": {
+        "fullCountryName": "United Kingdom",
+        "fullLanguageName": "English",
+        "defaultLanguage": "EN",
+        "defaultCountry": "UK",
+        "defaultLocale": "en-GB",
+        "currencyCode": "EUR",
+        "currencySign": "EUR",
+        "dateFormat": "HH:mm D-M-YYYY"
+      }
+    },
     "de": {
       "storeCode": "de",
       "disabled": true,
-      "storeId": 3,
+      "storeId": 18,
       "name": "German Store",
       "url": "/de",
       "elasticsearch": {
@@ -62,7 +95,7 @@
         "defaultCountry": "DE",
         "defaultRegion": "",
         "calculateServerSide": true,
-		"sourcePriceIncludesTax": false
+        "sourcePriceIncludesTax": false
       },
       "i18n": {
         "fullCountryName": "Germany",
@@ -75,31 +108,58 @@
         "dateFormat": "HH:mm D-M-YYYY"
       }
     },
-    "it": {
-      "storeCode": "it",
+    "fr": {
+      "storeCode": "fr",
       "disabled": true,
-      "storeId": 4,
-      "name": "Italian Store",
-      "url": "/it",
+      "storeId": 19,
+      "name": "French Store",
+      "url": "/de",
       "elasticsearch": {
         "host": "localhost:8080/api/catalog",
-        "index": "vue_storefront_catalog_it"
+        "index": "vue_storefront_catalog_fr"
       },
       "tax": {
-        "defaultCountry": "IT",
+        "defaultCountry": "FR",
         "defaultRegion": "",
         "calculateServerSide": true,
-		"sourcePriceIncludesTax": false
+        "sourcePriceIncludesTax": false
       },
       "i18n": {
-        "fullCountryName": "Italy",
-        "fullLanguageName": "Italian",
-        "defaultCountry": "IT",
-        "defaultLanguage": "IT",
-        "defaultLocale": "it-IT",
+        "fullCountryName": "France",
+        "fullLanguageName": "French",
+        "defaultLanguage": "FR",
+        "defaultCountry": "FR",
+        "defaultLocale": "fr-FR",
         "currencyCode": "EUR",
         "currencySign": "EUR",
         "dateFormat": "HH:mm D-M-YYYY"
+      },
+      "nl": {
+        "storeCode": "nl",
+        "disabled": true,
+        "storeId": 20,
+        "name": "Dutch Store",
+        "url": "/nl",
+        "elasticsearch": {
+          "host": "localhost:8080/api/catalog",
+          "index": "vue_storefront_catalog_nl"
+        },
+        "tax": {
+          "defaultCountry": "NL",
+          "defaultRegion": "",
+          "calculateServerSide": true,
+          "sourcePriceIncludesTax": false
+        },
+        "i18n": {
+          "fullCountryName": "Netherlands",
+          "fullLanguageName": "Dutch",
+          "defaultLanguage": "NL",
+          "defaultCountry": "NL",
+          "defaultLocale": "nl-NL",
+          "currencyCode": "EUR",
+          "currencySign": "EUR",
+          "dateFormat": "HH:mm D-M-YYYY"
+        }
       }
     }
   },
@@ -109,7 +169,7 @@
     "setConfigurableProductOptions": false
   },
   "tax": {
-    "defaultCountry": "PL",
+    "defaultCountry": "BE",
     "defaultRegion": "",
     "calculateServerSide": true,
     "alwaysSyncPlatformPricesOver": false,
@@ -117,7 +177,7 @@
     "setConfigurableProductOptions": true,
 	"sourcePriceIncludesTax": false
   },
-  "bodyLimit": "100kb",
+  "bodyLimit": "10000kb",
   "corsHeaders": [
     "Link"
   ],
@@ -147,46 +207,25 @@
     }
   },
   "magento2": {
-    "url": "http://demo-magento2.vuestorefront.io/",
-    "imgUrl": "http://demo-magento2.vuestorefront.io/media/catalog/product",
-    "assetPath": "/../var/magento2-sample-data/pub/media",
+    "url": "https://staging.onakcanoes.com/",
+    "imgUrl": "https://staging.onakcanoes.com/media/catalog/product",
+    "assetPath": "https://staging.onakcanoes.com/media",
     "magentoUserName": "",
     "magentoUserPassword": "",
     "httpUserName": "",
     "httpUserPassword": "",
     "api": {
-      "url": "http://demo-magento2.vuestorefront.io/rest",
-      "consumerKey": "byv3730rhoulpopcq64don8ukb8lf2gq",
-      "consumerSecret": "u9q4fcobv7vfx9td80oupa6uhexc27rb",
-      "accessToken": "040xx3qy7s0j28o3q0exrfop579cy20m",
-      "accessTokenSecret": "7qunl3p505rubmr7u1ijt7odyialnih9"
-    }
-  },
-  "magento1": {
-    "url": "http://magento-demo.local",
-    "imgUrl": "http://magento-demo.local/media/catalog/product",
-    "magentoUserName": "",
-    "magentoUserPassword": "",
-    "httpUserName": "",
-    "httpUserPassword": "",
-    "api": {
-      "url": "http://magento-demo.local/vsbridge",
-      "consumerKey": "",
-      "consumerSecret": "",
-      "accessToken": "",
-      "accessTokenSecret": ""
+      "url": "https://staging.onakcanoes.com/rest",
+      "consumerKey": "kdsn2jg1fcyni71glls0ej5ytu5rympd",
+      "consumerSecret": "0pfyvqu4lqno59sk343d4emktnuowjt9",
+      "accessToken": "b57g020y93t6r5atln5meqtv432h3mtn",
+      "accessTokenSecret": "b69rrde02m4jtq8ilyijandehoa88nf8"
     }
   },
   "imageable": {
     "namespace": "",
     "maxListeners": 512,
     "imageSizeLimit": 1024,
-    "whitelist": {
-      "allowedHosts": [
-        ".*divante.pl",
-        ".*vuestorefront.io"
-      ]
-    },
     "cache": {
       "memory": 50,
       "files": 20,
